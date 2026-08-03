@@ -45,7 +45,12 @@ async def login(req: LoginRequest):
     except HTTPException as he:
         raise he
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Authentication error: {str(e)}")
+        import traceback
+        print("=== AUTH EXCEPTION ===")
+        traceback.print_exc()
+        print(f"Exception details: {repr(e)}")
+        print("=======================")
+        raise HTTPException(status_code=500, detail=f"Authentication error: {repr(e)}")
 
 
 @router.post("/logout")

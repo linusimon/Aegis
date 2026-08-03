@@ -749,3 +749,50 @@ body.light-theme .top-navbar {
 body.light-theme .sidebar {
   background-color: #ffffff;
 }
+
+/* Custom Agent Workflow Connections styling */
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  animation: pulse-glow 1.5s infinite;
+  display: inline-block;
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(6, 182, 212, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
+}
+
+.animated-connector {
+  stroke-dasharray: 4;
+  animation: connector-dash 0.8s linear infinite;
+}
+
+@keyframes connector-dash {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.agent-workflow-row .agent-node {
+  min-width: 145px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

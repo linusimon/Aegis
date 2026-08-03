@@ -1,3 +1,17 @@
+import sys
+import asyncio
+
+if sys.platform == "win32":
+    # Force ProactorEventLoop
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    # Prevent uvicorn from overriding it
+    _orig_set_policy = asyncio.set_event_loop_policy
+    def custom_set_policy(policy):
+        if isinstance(policy, asyncio.WindowsSelectorEventLoopPolicy):
+            return
+        _orig_set_policy(policy)
+    asyncio.set_event_loop_policy = custom_set_policy
+
 from datetime import datetime, timezone
 import os
 from fastapi import FastAPI
@@ -22,6 +36,19 @@ app = FastAPI(
     redoc_url="/redoc",
     openapi_url="/openapi.json"
 )
+
+
+@app.exception_handler(Exception)
+async def debug_exception_handler(request, exc):
+    import traceback
+    print("=== DEBUG EXCEPTION HANDLER ===")
+    traceback.print_exc()
+    print("================================")
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=500,
+        content={"detail": str(exc), "traceback": traceback.format_exc()}
+    )
 
 # Enable CORS for interactive web frontend
 app.add_middleware(

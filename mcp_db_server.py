@@ -11,10 +11,10 @@ import sqlite3
 import asyncio
 from datetime import datetime, timezone, timedelta
 from typing import Optional, List, Dict, Any
-from mcp.server.mcpserver import MCPServer
+from mcp.server.fastmcp import FastMCP
 
-# Initialize MCPServer
-mcp = MCPServer("CapacityPlannerDB")
+# Initialize FastMCP
+mcp = FastMCP("CapacityPlannerDB")
 
 DB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 DB_PATH = os.path.join(DB_DIR, "capacity_planner.db")
@@ -174,7 +174,7 @@ async def init_db() -> str:
 
 
 @mcp.tool()
-async def insert_metrics(metrics_json: str) -> str:
+async def insert_metrics(metrics_json: Any) -> str:
     """Bulk insert time-series resource utilization metric records into SQLite database.
     
     Args:
@@ -184,7 +184,10 @@ async def insert_metrics(metrics_json: str) -> str:
         JSON string with insertion count status.
     """
     try:
-        data = json.loads(metrics_json)
+        if isinstance(metrics_json, str):
+            data = json.loads(metrics_json)
+        else:
+            data = metrics_json
         records = data.get("records", data) if isinstance(data, dict) else data
         if not isinstance(records, list):
             return json.dumps({"status": "error", "message": "Expected a list of metric records."})
@@ -252,7 +255,7 @@ async def query_metrics(node_id: str = "", limit: int = 100) -> str:
 
 
 @mcp.tool()
-async def save_forecast(forecast_json: str) -> str:
+async def save_forecast(forecast_json: Any) -> str:
     """Save time-series forecast results into the SQLite database.
     
     Args:
@@ -262,7 +265,10 @@ async def save_forecast(forecast_json: str) -> str:
         JSON string confirming forecast record insertion.
     """
     try:
-        data = json.loads(forecast_json)
+        if isinstance(forecast_json, str):
+            data = json.loads(forecast_json)
+        else:
+            data = forecast_json
         conn = get_db_connection()
         cursor = conn.cursor()
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -320,7 +326,7 @@ async def get_latest_forecast(node_id: str) -> str:
 
 
 @mcp.tool()
-async def save_risk_assessment(risk_json: str) -> str:
+async def save_risk_assessment(risk_json: Any) -> str:
     """Save cluster and node risk assessment results into the SQLite database.
     
     Args:
@@ -330,7 +336,10 @@ async def save_risk_assessment(risk_json: str) -> str:
         JSON string confirming risk assessment persistence.
     """
     try:
-        data = json.loads(risk_json)
+        if isinstance(risk_json, str):
+            data = json.loads(risk_json)
+        else:
+            data = risk_json
         conn = get_db_connection()
         cursor = conn.cursor()
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -383,7 +392,7 @@ async def get_latest_risk_assessment() -> str:
 
 
 @mcp.tool()
-async def save_user_feedback(feedback_json: str) -> str:
+async def save_user_feedback(feedback_json: Any) -> str:
     """Save user feedback rating (thumbs up/down) and comments into SQLite database.
     
     Args:
@@ -393,7 +402,10 @@ async def save_user_feedback(feedback_json: str) -> str:
         JSON string confirming feedback persistence.
     """
     try:
-        data = json.loads(feedback_json)
+        if isinstance(feedback_json, str):
+            data = json.loads(feedback_json)
+        else:
+            data = feedback_json
         conn = get_db_connection()
         cursor = conn.cursor()
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -428,7 +440,7 @@ async def save_user_feedback(feedback_json: str) -> str:
 
 
 @mcp.tool()
-async def save_scenario_run(scenario_json: str) -> str:
+async def save_scenario_run(scenario_json: Any) -> str:
     """Save scenario stress test simulation run log into SQLite database.
     
     Args:
@@ -438,7 +450,10 @@ async def save_scenario_run(scenario_json: str) -> str:
         JSON string confirming scenario record persistence.
     """
     try:
-        data = json.loads(scenario_json)
+        if isinstance(scenario_json, str):
+            data = json.loads(scenario_json)
+        else:
+            data = scenario_json
         conn = get_db_connection()
         cursor = conn.cursor()
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -465,7 +480,7 @@ async def save_scenario_run(scenario_json: str) -> str:
 
 
 @mcp.tool()
-async def save_finops_report(report_json: str) -> str:
+async def save_finops_report(report_json: Any) -> str:
     """Save FinOps cost optimization report into the SQLite database.
     
     Args:
@@ -475,7 +490,10 @@ async def save_finops_report(report_json: str) -> str:
         JSON string confirming report persistence.
     """
     try:
-        data = json.loads(report_json)
+        if isinstance(report_json, str):
+            data = json.loads(report_json)
+        else:
+            data = report_json
         conn = get_db_connection()
         cursor = conn.cursor()
         now_iso = datetime.now(timezone.utc).isoformat()

@@ -12,7 +12,7 @@ import json
 import asyncio
 from typing import List, Dict, Any, Optional, AsyncGenerator
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.services.llm_factory import get_llm
 from langgraph.prebuilt import create_react_agent
 from app.rag_engine import rag_engine
 from app.mcp_client import MCPDatabaseClient
@@ -70,21 +70,9 @@ class CapacityChatbotAgent:
         self.mcp_client = MCPDatabaseClient()
         self.llm = self._init_llm()
 
-    def _init_llm(self) -> Optional[ChatGoogleGenerativeAI]:
-        """Initialize Google Gemini LLM instance if API key is configured."""
-        api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            return None
-        try:
-            return ChatGoogleGenerativeAI(
-                model="gemini-2.0-flash",
-                google_api_key=api_key,
-                temperature=0.3,
-                max_output_tokens=300,
-                streaming=True
-            )
-        except Exception:
-            return None
+    def _init_llm(self):
+        """Initialize LLM instance via factory."""
+        return get_llm(temperature=0.3, max_tokens=300, streaming=True)
 
     def get_sliding_window_memory(self, session_id: str, max_turns: int = 12) -> List[Dict[str, str]]:
         """Retrieve recent conversation turns for session memory."""
@@ -257,7 +245,8 @@ class CapacityChatbotAgent:
         # Stream via Gemini LLM if connected
         if self.llm:
             try:
-                async with asyncio.timeout(6.0):
+                timeout_limit = float(os.getenv("LLM_TIMEOUT", "12.0"))
+                async with asyncio.timeout(timeout_limit):
                     async for chunk in self.llm.astream(messages):
                         content = chunk.content
                         text_token = ""

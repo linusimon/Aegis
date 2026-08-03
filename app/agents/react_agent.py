@@ -6,7 +6,7 @@ Controls explicit nodes, edges, state transitions, and tool-calling execution lo
 import os
 from typing import Any, List, Dict, Optional
 from langchain_core.tools import tool
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.services.llm_factory import get_llm
 try:
     from langchain.agents import create_agent as create_react_agent
 except ImportError:
@@ -37,16 +37,10 @@ def build_langgraph_react_agent():
     Replaces legacy LangChain AgentExecutor to provide explicit control over
     graph state, tool nodes, and edge transitions.
     """
-    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        return None
-
     try:
-        model = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash",
-            google_api_key=api_key,
-            temperature=0.2
-        )
+        model = get_llm(temperature=0.2)
+        if not model:
+            return None
         tools = [query_cluster_metrics_tool, search_finops_rag_playbook_tool]
         
         # Modern LangGraph create_react_agent (replaces legacy AgentExecutor)

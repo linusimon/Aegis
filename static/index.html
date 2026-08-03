@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aegis AI - Infrastructure Capacity Planning Advisor</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/styles.css?v=20260803_v10">
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -64,7 +64,7 @@
         <!-- Operational Status Indicator -->
         <div class="system-status-indicator" onclick="openAgentGraphModal()" style="cursor: pointer;" title="Click to view LangGraph Multi-Agent Architecture">
           <div class="pulse-dot"></div>
-          <span>MCP ACTIVE</span>
+          <span>AGENTS ACTIVE</span>
         </div>
 
         <!-- Telemetry Explorer -->
@@ -223,6 +223,53 @@
             </div>
           </div>
         </div>
+
+        <!-- Active Agentic Workflow Connection Panel -->
+        <div class="panel-card" style="margin-top: 20px;">
+          <div class="panel-header" style="margin-bottom: 12px;">
+            <h3 class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+              <span class="pulse-indicator"></span> Active LangGraph Agent Workflow Connections
+            </h3>
+          </div>
+          <div class="agent-workflow-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto;">
+            <!-- Start Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700;">
+              __start__
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-cyan); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-cyan)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-cyan)" class="animated-connector" />
+            </svg>
+
+            <!-- Supervisor Router Hub Node -->
+            <div class="agent-node" style="border: 2px solid var(--accent-cyan); background: var(--bg-card); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);">
+              <div class="node-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Supervisor Router Hub</div>
+              <div class="node-role" style="font-size: 10px; color: var(--text-secondary); margin-top: 2px;">Conditional Routing State Graph</div>
+              <div style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 4px; background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">Active Router</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-green); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-green)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-green)" class="animated-connector" />
+            </svg>
+
+            <!-- End Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--accent-green); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--accent-green); font-weight: 700;">
+              __end__
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- PAGE 2: PREDICTIVE ENGINE -->
@@ -271,7 +318,70 @@
             <div class="anomaly-item item-normal">
               <div style="font-size: 11px; color: var(--text-secondary);">SLA Breach Status</div>
               <div style="font-size: 16px; font-weight: 700; color: var(--accent-green);" id="sla-status-value">0 Breaches</div>
-              <div style="font-size: 11px; color: var(--accent-green);">SLA Compliant</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Agentic Workflow Connection Panel -->
+        <div class="panel-card" style="margin-top: 20px;">
+          <div class="panel-header" style="margin-bottom: 12px;">
+            <h3 class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+              <span class="pulse-indicator"></span> Active LangGraph Agent Workflow Connections
+            </h3>
+          </div>
+          <div class="agent-workflow-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto;">
+            <!-- Supervisor Router Hub Node -->
+            <div class="agent-node" style="border: 1px solid var(--border-color); background: var(--bg-sidebar); opacity: 0.8;">
+              <div class="node-title" style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Supervisor Router Hub</div>
+              <div class="node-role" style="font-size: 9px; color: var(--text-muted);">Conditional Router</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-cyan); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-cyan)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-cyan)" class="animated-connector" />
+            </svg>
+
+            <!-- Forecast Agent Node -->
+            <div class="agent-node" style="border: 2px solid var(--accent-cyan); background: var(--bg-card); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);">
+              <div class="node-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Forecast Agent</div>
+              <div class="node-role" style="font-size: 10px; color: var(--text-secondary); margin-top: 2px;">Holt-Winters Ridge</div>
+              <div style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 4px; background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">Active Agent</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-green); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-green)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-green)" class="animated-connector" />
+            </svg>
+
+            <!-- MCP Tool Node -->
+            <div class="agent-node" style="border: 1px dashed var(--accent-green); background: rgba(34, 197, 94, 0.05); padding: 8px 12px;">
+              <div style="font-weight: 700; color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">MCP: save_forecast</div>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">Database Tool</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--text-muted); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--text-muted)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-muted)" />
+            </svg>
+
+            <!-- End Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700;">
+              __end__
             </div>
           </div>
         </div>
@@ -334,6 +444,70 @@
             </div>
           </div>
         </div>
+
+        <!-- Active Agentic Workflow Connection Panel -->
+        <div class="panel-card" style="margin-top: 20px;">
+          <div class="panel-header" style="margin-bottom: 12px;">
+            <h3 class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+              <span class="pulse-indicator"></span> Active LangGraph Agent Workflow Connections
+            </h3>
+          </div>
+          <div class="agent-workflow-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto;">
+            <!-- Supervisor Router Hub Node -->
+            <div class="agent-node" style="border: 1px solid var(--border-color); background: var(--bg-sidebar); opacity: 0.8;">
+              <div class="node-title" style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Supervisor Router Hub</div>
+              <div class="node-role" style="font-size: 9px; color: var(--text-muted);">Conditional Router</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-cyan); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-cyan)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-cyan)" class="animated-connector" />
+            </svg>
+
+            <!-- FinOps Agent Node -->
+            <div class="agent-node" style="border: 2px solid var(--accent-cyan); background: var(--bg-card); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);">
+              <div class="node-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary);">FinOps Agent</div>
+              <div class="node-role" style="font-size: 10px; color: var(--text-secondary); margin-top: 2px;">RAG Playbooks</div>
+              <div style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 4px; background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">Active Agent</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-green); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-green)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-green)" class="animated-connector" />
+            </svg>
+
+            <!-- MCP Tool Node -->
+            <div class="agent-node" style="border: 1px dashed var(--accent-green); background: rgba(34, 197, 94, 0.05); padding: 8px 12px;">
+              <div style="font-weight: 700; color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">MCP: query_playbook</div>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">Vector DB RAG</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--text-muted); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--text-muted)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-muted)" />
+            </svg>
+
+            <!-- End Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700;">
+              __end__
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- PAGE 4: WHAT-IF SIMULATION -->
@@ -382,6 +556,70 @@
             </div>
             <div class="chart-container">
               <canvas id="simulationChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Agentic Workflow Connection Panel -->
+        <div class="panel-card" style="margin-top: 20px;">
+          <div class="panel-header" style="margin-bottom: 12px;">
+            <h3 class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+              <span class="pulse-indicator"></span> Active LangGraph Agent Workflow Connections
+            </h3>
+          </div>
+          <div class="agent-workflow-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto;">
+            <!-- Supervisor Router Hub Node -->
+            <div class="agent-node" style="border: 1px solid var(--border-color); background: var(--bg-sidebar); opacity: 0.8;">
+              <div class="node-title" style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Supervisor Router Hub</div>
+              <div class="node-role" style="font-size: 9px; color: var(--text-muted);">Conditional Router</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-cyan); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-cyan)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-cyan)" class="animated-connector" />
+            </svg>
+
+            <!-- Simulator Agent Node -->
+            <div class="agent-node" style="border: 2px solid var(--accent-cyan); background: var(--bg-card); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);">
+              <div class="node-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Simulator Agent</div>
+              <div class="node-role" style="font-size: 10px; color: var(--text-secondary); margin-top: 2px;">What-If Sandbox</div>
+              <div style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 4px; background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">Active Agent</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-green); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-green)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-green)" class="animated-connector" />
+            </svg>
+
+            <!-- MCP Tool Node -->
+            <div class="agent-node" style="border: 1px dashed var(--accent-green); background: rgba(34, 197, 94, 0.05); padding: 8px 12px;">
+              <div style="font-weight: 700; color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">MCP: simulate_scenario</div>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">Stress Test Engine</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--text-muted); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--text-muted)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-muted)" />
+            </svg>
+
+            <!-- End Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700;">
+              __end__
             </div>
           </div>
         </div>
@@ -463,6 +701,70 @@
                 <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Utilization is balanced at ~51% CPU. Maintain current autoscaling thresholds.</div>
                 <div style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-green); margin-top: 6px;">Status: SLA Compliant</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Agentic Workflow Connection Panel -->
+        <div class="panel-card" style="margin-top: 20px;">
+          <div class="panel-header" style="margin-bottom: 12px;">
+            <h3 class="panel-title" style="display: flex; align-items: center; gap: 8px;">
+              <span class="pulse-indicator"></span> Active LangGraph Agent Workflow Connections
+            </h3>
+          </div>
+          <div class="agent-workflow-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border-color); overflow-x: auto;">
+            <!-- Supervisor Router Hub Node -->
+            <div class="agent-node" style="border: 1px solid var(--border-color); background: var(--bg-sidebar); opacity: 0.8;">
+              <div class="node-title" style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Supervisor Router Hub</div>
+              <div class="node-role" style="font-size: 9px; color: var(--text-muted);">Conditional Router</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-cyan); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-cyan)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-cyan)" class="animated-connector" />
+            </svg>
+
+            <!-- Risk Agent Node -->
+            <div class="agent-node" style="border: 2px solid var(--accent-cyan); background: var(--bg-card); box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);">
+              <div class="node-title" style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Risk Agent</div>
+              <div class="node-role" style="font-size: 10px; color: var(--text-secondary); margin-top: 2px;">TTE & SLA Health</div>
+              <div style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 4px; background: rgba(6,182,212,0.1); padding: 1px 4px; border-radius: 3px;">Active Agent</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--accent-green); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--accent-green)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-green)" class="animated-connector" />
+            </svg>
+
+            <!-- MCP Tool Node -->
+            <div class="agent-node" style="border: 1px dashed var(--accent-green); background: rgba(34, 197, 94, 0.05); padding: 8px 12px;">
+              <div style="font-weight: 700; color: var(--accent-green); font-size: 11px; font-family: var(--font-mono);">MCP: save_risk</div>
+              <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">Database Tool</div>
+            </div>
+
+            <!-- Connector Arrow -->
+            <svg width="40" height="20" style="stroke: var(--text-muted); stroke-width: 2; fill: none; flex-shrink: 0;">
+              <defs>
+                <marker id="mini-arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 2 L 6 5 L 0 8 z" fill="var(--text-muted)" />
+                </marker>
+              </defs>
+              <line x1="0" y1="10" x2="35" y2="10" marker-end="url(#mini-arrow-muted)" />
+            </svg>
+
+            <!-- End Node -->
+            <div style="padding: 8px 16px; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); font-weight: 700;">
+              __end__
             </div>
           </div>
         </div>
@@ -621,33 +923,33 @@
             </defs>
 
             <!-- 1. __start__ -> SupervisorAgent Edge -->
-            <path d="M 120 62 L 320 62" marker-end="url(#arrowhead)" stroke-dasharray="4 2" />
+            <path id="path-start-supervisor" d="M 120 62 L 320 62" marker-end="url(#arrowhead)" stroke-dasharray="4 2" />
 
             <!-- 2. SupervisorAgent -> Worker Dispatch Edges -->
-            <path d="M 450 105 C 450 155, 110 155, 110 210" marker-end="url(#arrowhead)" />
-            <path d="M 450 105 C 450 155, 800 155, 800 210" marker-end="url(#arrowhead)" />
+            <path id="path-supervisor-data" d="M 450 105 C 450 155, 110 155, 110 210" marker-end="url(#arrowhead)" />
+            <path id="path-supervisor-simulator" d="M 450 105 C 450 155, 800 155, 800 210" marker-end="url(#arrowhead)" />
 
             <!-- 3. Sequential Worker Pipeline Edges (Data -> Forecast -> Risk -> FinOps) -->
-            <path d="M 175 255 L 210 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
-            <path d="M 350 255 L 385 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
-            <path d="M 525 255 L 560 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
+            <path id="path-data-forecast" d="M 175 255 L 210 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
+            <path id="path-forecast-risk" d="M 350 255 L 385 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
+            <path id="path-risk-finops" d="M 525 255 L 560 255" marker-end="url(#arrowhead-amber)" stroke="var(--accent-amber)" />
 
             <!-- 4. Pipeline Loopback & Simulator Edges -> SupervisorAgent -->
-            <path d="M 630 210 C 630 130, 580 130, 580 75" marker-end="url(#arrowhead)" stroke-dasharray="3 3" opacity="0.8" />
-            <path d="M 800 210 C 800 130, 580 130, 580 75" marker-end="url(#arrowhead)" stroke-dasharray="3 3" opacity="0.8" />
+            <path id="path-finops-supervisor" d="M 630 210 C 630 130, 580 130, 580 75" marker-end="url(#arrowhead)" stroke-dasharray="3 3" opacity="0.8" />
+            <path id="path-simulator-supervisor" d="M 800 210 C 800 130, 580 130, 580 75" marker-end="url(#arrowhead)" stroke-dasharray="3 3" opacity="0.8" />
 
             <!-- 5. SupervisorAgent -> __end__ Edge (FINISH) -->
-            <path d="M 450 105 C 450 360, 450 360, 450 410" marker-end="url(#arrowhead-green)" stroke="var(--accent-green)" />
+            <path id="path-supervisor-end" d="M 450 105 C 450 360, 450 360, 450 410" marker-end="url(#arrowhead-green)" stroke="var(--accent-green)" />
           </svg>
 
           <!-- Graph Nodes Layer -->
           <!-- START NODE -->
-          <div style="position: absolute; top: 44px; left: 20px; width: 100px; padding: 10px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 700;">
+          <div id="node-start" style="position: absolute; top: 44px; left: 20px; width: 100px; padding: 10px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 700; transition: all 0.3s ease;">
             __start__
           </div>
 
           <!-- SUPERVISOR ROUTER NODE -->
-          <div style="position: absolute; top: 24px; left: 320px; width: 260px; padding: 14px; background: var(--bg-card); border: 2px solid var(--accent-cyan); border-radius: 8px; text-align: center;">
+          <div id="node-supervisor" style="position: absolute; top: 24px; left: 320px; width: 260px; padding: 14px; background: var(--bg-card); border: 2px solid var(--accent-cyan); border-radius: 8px; text-align: center; transition: all 0.3s ease;">
             <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); font-family: var(--font-headline);">Supervisor Router Hub</div>
             <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">Conditional Routing State Graph</div>
             <div style="font-size: 10px; font-family: var(--font-mono); color: var(--accent-cyan); margin-top: 6px; background: rgba(6,182,212,0.12); padding: 2px 6px; border-radius: 4px; display: inline-block;">State: AgentState(messages, next)</div>
@@ -655,31 +957,31 @@
 
           <!-- SUB-AGENTS ROW -->
           <div style="position: absolute; top: 210px; left: 16px; right: 16px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
-            <div class="agent-node" style="padding: 12px; font-size: 11px;">
+            <div id="node-agent-data" class="agent-node" style="padding: 12px; font-size: 11px; transition: all 0.3s ease;">
               <div class="node-title" style="font-size: 12px;">Data Agent</div>
               <div class="node-role" style="font-size: 10px;">Ingestion & Outliers</div>
               <div class="node-mcp" style="font-size: 10px;">MCP: insert_metrics</div>
             </div>
 
-            <div class="agent-node" style="padding: 12px; font-size: 11px;">
+            <div id="node-agent-forecast" class="agent-node" style="padding: 12px; font-size: 11px; transition: all 0.3s ease;">
               <div class="node-title" style="font-size: 12px;">Forecast Agent</div>
               <div class="node-role" style="font-size: 10px;">Holt-Winters Ridge</div>
               <div class="node-mcp" style="font-size: 10px;">MCP: save_forecast</div>
             </div>
 
-            <div class="agent-node" style="padding: 12px; font-size: 11px;">
+            <div id="node-agent-risk" class="agent-node" style="padding: 12px; font-size: 11px; transition: all 0.3s ease;">
               <div class="node-title" style="font-size: 12px;">Risk Agent</div>
               <div class="node-role" style="font-size: 10px;">TTE & SLA Health</div>
               <div class="node-mcp" style="font-size: 10px;">MCP: save_risk</div>
             </div>
 
-            <div class="agent-node" style="padding: 12px; font-size: 11px;">
+            <div id="node-agent-finops" class="agent-node" style="padding: 12px; font-size: 11px; transition: all 0.3s ease;">
               <div class="node-title" style="font-size: 12px;">FinOps Agent</div>
               <div class="node-role" style="font-size: 10px;">RAG Playbooks</div>
               <div class="node-mcp" style="font-size: 10px;">MCP: query_playbook</div>
             </div>
 
-            <div class="agent-node" style="padding: 12px; font-size: 11px;">
+            <div id="node-agent-simulator" class="agent-node" style="padding: 12px; font-size: 11px; transition: all 0.3s ease;">
               <div class="node-title" style="font-size: 12px;">Simulator Agent</div>
               <div class="node-role" style="font-size: 10px;">What-If Sandbox</div>
               <div class="node-mcp" style="font-size: 10px;">MCP: simulate_scenario</div>
@@ -687,7 +989,7 @@
           </div>
 
           <!-- END STATE NODE -->
-          <div style="position: absolute; top: 410px; left: 390px; width: 120px; padding: 8px; background: var(--bg-card); border: 1px solid var(--accent-green); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--accent-green); font-weight: 700;">
+          <div id="node-end" style="position: absolute; top: 410px; left: 390px; width: 120px; padding: 8px; background: var(--bg-card); border: 1px solid var(--accent-green); border-radius: 20px; text-align: center; font-size: 11px; font-family: var(--font-mono); color: var(--accent-green); font-weight: 700; transition: all 0.3s ease;">
             __end__
           </div>
         </div>
@@ -695,6 +997,6 @@
     </div>
   </div>
 
-  <script src="/static/app.js?v=20260803_v8"></script>
+  <script src="/static/app.js?v=20260803_v10"></script>
 </body>
 </html>

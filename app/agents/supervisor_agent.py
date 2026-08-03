@@ -10,7 +10,7 @@ from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.services.llm_factory import get_llm
 
 load_dotenv()
 
@@ -19,25 +19,7 @@ class SupervisorAgent:
     """Supervisor orchestrator managing task routing across worker agents."""
 
     def __init__(self):
-        self.api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-        self.llm = None
-        
-        if self.api_key and self.api_key != "your_gemini_api_key_here":
-            try:
-                self.llm = ChatGoogleGenerativeAI(
-                    model="gemini-flash-latest",
-                    google_api_key=self.api_key,
-                    temperature=0.2
-                )
-            except Exception:
-                try:
-                    self.llm = ChatGoogleGenerativeAI(
-                        model="gemini-2.0-flash",
-                        google_api_key=self.api_key,
-                        temperature=0.2
-                    )
-                except Exception:
-                    self.llm = None
+        self.llm = get_llm(temperature=0.2)
 
     def determine_next_node(self, state: Dict[str, Any]) -> str:
         """Rule-based and LLM-assisted supervisor routing logic."""

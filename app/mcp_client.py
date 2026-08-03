@@ -66,7 +66,7 @@ class MCPDatabaseClient:
                     {
                         "name": tool.name,
                         "description": tool.description,
-                        "input_schema": tool.input_schema
+                        "input_schema": tool.inputSchema
                     }
                     for tool in tools_response.tools
                 ]
@@ -82,7 +82,7 @@ class MCPDatabaseClient:
                         "uri": str(resource.uri),
                         "name": resource.name,
                         "description": resource.description,
-                        "mime_type": resource.mime_type
+                        "mime_type": resource.mimeType
                     }
                     for resource in resources_response.resources
                 ]

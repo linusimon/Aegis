@@ -217,10 +217,133 @@ async function uploadTelemetryFile(event) {
   }
 }
 
+// Dynamically highlight active paths/nodes in the architecture modal
+function highlightModalGraph(activeTab) {
+  const allNodes = [
+    'node-start', 'node-supervisor', 'node-end',
+    'node-agent-data', 'node-agent-forecast', 'node-agent-risk', 'node-agent-finops', 'node-agent-simulator'
+  ];
+  const allPaths = [
+    'path-start-supervisor', 'path-supervisor-data', 'path-supervisor-simulator',
+    'path-data-forecast', 'path-forecast-risk', 'path-risk-finops',
+    'path-finops-supervisor', 'path-simulator-supervisor', 'path-supervisor-end'
+  ];
+
+  // 1. Reset all elements to faded opacity
+  allNodes.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '0.15';
+      el.style.boxShadow = 'none';
+      el.style.borderColor = 'var(--border-color)';
+    }
+  });
+
+  allPaths.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '0.15';
+      el.style.strokeWidth = '2';
+      el.classList.remove('animated-connector');
+    }
+  });
+
+  // Helper utilities
+  function highlightNode(id, borderStyle = '2px solid var(--accent-cyan)', glowColor = 'rgba(6, 182, 212, 0.4)') {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '1';
+      el.style.border = borderStyle;
+      el.style.boxShadow = `0 0 14px ${glowColor}`;
+    }
+  }
+
+  function highlightPath(id, color = 'var(--accent-cyan)') {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '1';
+      el.style.stroke = color;
+      el.style.strokeWidth = '3.5';
+      el.classList.add('animated-connector');
+    }
+  }
+
+  // 2. Highlighting configuration based on the active tab page
+  if (activeTab === 'overview') {
+    // Overview tab: shows the central coordination workflow
+    highlightNode('node-start', '1px solid var(--border-color)', 'transparent');
+    highlightPath('path-start-supervisor');
+    highlightNode('node-supervisor', '2px solid var(--accent-cyan)', 'rgba(6, 182, 212, 0.4)');
+    highlightPath('path-supervisor-end', 'var(--accent-green)');
+    highlightNode('node-end', '1px solid var(--accent-green)', 'rgba(34, 197, 94, 0.3)');
+  } 
+  else if (activeTab === 'predictive') {
+    // Predictive Engine tab: routes Supervisor -> Data -> Forecast -> Risk -> FinOps -> Supervisor -> End
+    highlightNode('node-supervisor', '2px solid var(--border-color)', 'transparent');
+    highlightPath('path-supervisor-data');
+    highlightNode('node-agent-data');
+    highlightPath('path-data-forecast');
+    highlightNode('node-agent-forecast', '2px solid var(--accent-cyan)', 'rgba(6, 182, 212, 0.5)');
+    highlightPath('path-forecast-risk');
+    highlightNode('node-agent-risk');
+    highlightPath('path-risk-finops');
+    highlightNode('node-agent-finops');
+    highlightPath('path-finops-supervisor');
+    highlightPath('path-supervisor-end', 'var(--accent-green)');
+    highlightNode('node-end', '1px solid var(--accent-green)', 'rgba(34, 197, 94, 0.3)');
+  } 
+  else if (activeTab === 'finops') {
+    // FinOps Optimization tab: routes Supervisor -> Data -> Forecast -> Risk -> FinOps -> Supervisor -> End
+    highlightNode('node-supervisor', '2px solid var(--border-color)', 'transparent');
+    highlightPath('path-supervisor-data');
+    highlightNode('node-agent-data');
+    highlightPath('path-data-forecast');
+    highlightNode('node-agent-forecast');
+    highlightPath('path-forecast-risk');
+    highlightNode('node-agent-risk');
+    highlightPath('path-risk-finops');
+    highlightNode('node-agent-finops', '2px solid var(--accent-cyan)', 'rgba(6, 182, 212, 0.5)');
+    highlightPath('path-finops-supervisor');
+    highlightPath('path-supervisor-end', 'var(--accent-green)');
+    highlightNode('node-end', '1px solid var(--accent-green)', 'rgba(34, 197, 94, 0.3)');
+  } 
+  else if (activeTab === 'simulation') {
+    // What-If Simulation tab: routes Supervisor -> Simulator -> Supervisor -> End
+    highlightNode('node-supervisor', '2px solid var(--border-color)', 'transparent');
+    highlightPath('path-supervisor-simulator');
+    highlightNode('node-agent-simulator', '2px solid var(--accent-cyan)', 'rgba(6, 182, 212, 0.5)');
+    highlightPath('path-simulator-supervisor');
+    highlightPath('path-supervisor-end', 'var(--accent-green)');
+    highlightNode('node-end', '1px solid var(--accent-green)', 'rgba(34, 197, 94, 0.3)');
+  } 
+  else if (activeTab === 'risk') {
+    // Risk & Reliability tab: routes Supervisor -> Data -> Forecast -> Risk -> FinOps -> Supervisor -> End
+    highlightNode('node-supervisor', '2px solid var(--border-color)', 'transparent');
+    highlightPath('path-supervisor-data');
+    highlightNode('node-agent-data');
+    highlightPath('path-data-forecast');
+    highlightNode('node-agent-forecast');
+    highlightPath('path-forecast-risk');
+    highlightNode('node-agent-risk', '2px solid var(--accent-cyan)', 'rgba(6, 182, 212, 0.5)');
+    highlightPath('path-risk-finops');
+    highlightNode('node-agent-finops');
+    highlightPath('path-finops-supervisor');
+    highlightPath('path-supervisor-end', 'var(--accent-green)');
+    highlightNode('node-end', '1px solid var(--accent-green)', 'rgba(34, 197, 94, 0.3)');
+  }
+}
+
 // Open LangGraph Multi-Agent Architecture Modal
 async function openAgentGraphModal() {
   const modal = document.getElementById('agent-graph-modal');
   modal.classList.add('open');
+
+  // Resolve active tab
+  const activeNav = document.querySelector('.nav-item.active');
+  const activeTab = activeNav ? activeNav.id.replace('nav-', '') : 'overview';
+
+  highlightModalGraph(activeTab);
+
   try {
     const res = await fetch('/api/agent/graph');
     const data = await res.json();
