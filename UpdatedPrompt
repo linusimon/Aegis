@@ -1,0 +1,148 @@
+Analyse the below statement to build an enterprise-grade production ready AI application for the provided problem statement. Please dont start to build anything yet.
+
+We are planning to build the application from backend  (python flask) to frontend (Angular)
+
+Brainstorm and analyse how to build the application without deviating from the problem statement.
+
+We don't want any hardcoding done in the application
+
+We also want to include the below concepts in our application.
+
+MCP using https transport method, Rag for policy documents or SOW etc...,login page with JWT login functionality (separate admin and user login), Guardrails, chat assistant, Multiagent concept (Langraph) use supervisor agent and nodes concept. Have an agent folder and have each agents in separate files. Have mcp tools attached to the agent wherever applicable. Have parallel processing done wherever applicable.
+
+I want you to create an implementation plan with several milestones so that we can build this app task by task. 
+
+Please consider the below for creating the milestones for implementation plan
+
+## Core Principles
+-   Enterprise-grade, production-style code.
+-   Modular, scalable, maintainable architecture.
+-   Angular 17 frontend + Flask backend python 3.12.8
+-   Multi-agent supervisor langraph method with tools attached to agent.
+-   MCP as tool that are attached to agents.
+-   RAG only for static policy like documents.
+-   No hard coding
+
+## Required Stack
+
+### Frontend
+-   Angular 17 Standalone Components
+-   TypeScript
+-   RxJS
+-   Implement UI though stich MCP as part of a milestone.
+
+### Backend
+-   Python Flask
+-   SQLite DB
+-   JWT
+-   REST APIs
+-   Configuration via environment variables
+
+### AI
+- Multi-agent supervisor langraph method with tools attached to agent.
+- Knowledge Retrieval (RAG)
+- Vector Embeddings
+- Text chat
+- Voice chat(STT/TTS)
+- Vision/OCR
+
+
+## Orchestrator Rules
+- Dynamically decide which agents are required.
+- Execute agents in parallel if possible
+- Merge outputs into a unified response.
+
+## Guardrails
+Execute before intent recognition:
+- Prompt Injection Detection
+- Jailbreak Prevention
+- Toxicity Detection
+- Sensitive Information Detection
+- PII Masking
+- SQL Injection Protection
+- Hallucination Detection
+- Content Moderation
+- Rate Limiting
+- RBAC
+- Audit Logging
+- Question Relevance Verification
+
+Before returning a response:
+- Validate the final LLM response using the guardrails.
+- Perform audit trail validation.
+- Reflection agent to check and retry
+
+## Knowledge Retrieval Rules
+Use RAG only for:
+- Problem-specific policy documents
+- Business procedures
+- SOPs
+- Knowledge articles
+- Regulatory documents
+- Compliance documentation
+- FAQs
+- Static reference documents
+Do not use RAG for transactional or frequently changing business data.
+
+## Data Processing
+Before agent execution:
+- Cleanse incoming data.
+- Build context from previous conversations if applicable.
+- Enrich with live systems or application through MCP.
+
+## Authentication & Administration
+- Login/Logout
+- JWT Authentication
+- RBAC
+- User Management
+- Admin Console
+- Master Data Management
+- Knowledge Document Management
+- Configuration Management
+- Audit Logs
+- Analytics Dashboard
+
+Only administrators may manage business data and knowledge documents.
+
+## Database
+Derive entities from the problem statement.
+Create:
+- Normalized schema
+- Relationships
+- Indexes
+- Seed data
+- Sample datasets
+
+## Coding Standards
+- SOLID
+- DRY
+- Layered Architecture
+- Repository Pattern
+- Service Layer
+- Dependency Injection
+- Environment-based configuration
+- Type-safe reusable components
+- Comprehensive logging
+- Robust exception handling
+
+## Demo Features
+Provide a collapsible execution log showing:
+- Input processing
+- Guardrails executed
+- Agents selected
+- Agent inputs
+- Agent outputs
+- MCP tool calls
+- Knowledge retrieval
+- Final orchestration flow
+
+## Definition of Done
+- No TODOs
+- No hardcoded secrets
+- Builds successfully
+- Documentation matches implementation
+- Secure by default
+- Easily extensible for future business domains
+
+
+
