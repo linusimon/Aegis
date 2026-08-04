@@ -41,7 +41,10 @@ async def get_risk_assessment_report(
 
 @router.get("/recommendations")
 @router.get("/v1/advisory/recommendations")
+@router.get("/right-sizing")
+@router.get("/v1/advisory/right-sizing")
 async def get_finops_optimization_report():
+
     """Retrieve FinOps cost optimization and right-sizing advisory report.
     
     Demonstrates >= 20% cost savings target with actionable recommendations grounded

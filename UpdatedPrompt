@@ -1,148 +1,190 @@
-Analyse the below statement to build an enterprise-grade production ready AI application for the provided problem statement. Please dont start to build anything yet.
+# Prompt for Creating Milestones and Implementation Plan
 
-We are planning to build the application from backend  (python flask) to frontend (Angular)
-
-Brainstorm and analyse how to build the application without deviating from the problem statement.
-
-We don't want any hardcoding done in the application
-
-We also want to include the below concepts in our application.
-
-MCP using https transport method, Rag for policy documents or SOW etc...,login page with JWT login functionality (separate admin and user login), Guardrails, chat assistant, Multiagent concept (Langraph) use supervisor agent and nodes concept. Have an agent folder and have each agents in separate files. Have mcp tools attached to the agent wherever applicable. Have parallel processing done wherever applicable.
-
-I want you to create an implementation plan with several milestones so that we can build this app task by task. 
-
-Please consider the below for creating the milestones for implementation plan
+Please create a detailed milestone-wise implementation plan for an enterprise-grade AI application based on the following requirements. Dont implement anything yet
 
 ## Core Principles
--   Enterprise-grade, production-style code.
--   Modular, scalable, maintainable architecture.
--   Angular 17 frontend + Flask backend python 3.12.8
--   Multi-agent supervisor langraph method with tools attached to agent.
--   MCP as tool that are attached to agents.
--   RAG only for static policy like documents.
--   No hard coding
 
-## Required Stack
-
-### Frontend
--   Angular 17 Standalone Components
--   TypeScript
--   RxJS
--   Implement UI though stich MCP as part of a milestone.
-
-### Backend
--   Python Flask
--   SQLite DB
--   JWT
--   REST APIs
--   Configuration via environment variables
-
-### AI
-- Multi-agent supervisor langraph method with tools attached to agent.
-- Knowledge Retrieval (RAG)
-- Vector Embeddings
-- Text chat
-- Voice chat(STT/TTS)
-- Vision/OCR
+* Enterprise-grade, production-ready code.
+* Modular, scalable, and maintainable architecture.
+* No hardcoded values or secrets.
+* Environment-based configuration.
+* Follow SOLID and DRY principles.
+* Layered architecture with Repository Pattern, Service Layer, and Dependency Injection.
+* Comprehensive logging and robust exception handling.
+* Type-safe, reusable components.
+* Easily extensible for future business domains.
+* Separate backend, frontend and MCP folder
+* Separate and unified setup and start batch files to run frontend, backend and mcp server.
+* Separate database for backend application logic and mcp server logic
+* Analyze TCS genai in https://genailab.tcs.in and identify the best gen lab api and models to use in an agent.
+* Use stich for the UI design through the MCP configured in the antigravity and later use that HTML to build the angular UI without any change in design.
+* Create documentation like readme and architectural diagram.
+* Create unit test code and provide option to run and save result of unit test.
+* Create a detailed testcase for problem statement. Provide option execute the automated regression test and save the result.
 
 
-## Orchestrator Rules
-- Dynamically decide which agents are required.
-- Execute agents in parallel if possible
-- Merge outputs into a unified response.
+---
 
-## Guardrails
-Execute before intent recognition:
-- Prompt Injection Detection
-- Jailbreak Prevention
-- Toxicity Detection
-- Sensitive Information Detection
-- PII Masking
-- SQL Injection Protection
-- Hallucination Detection
-- Content Moderation
-- Rate Limiting
-- RBAC
-- Audit Logging
-- Question Relevance Verification
+# Technology Stack
 
-Before returning a response:
-- Validate the final LLM response using the guardrails.
-- Perform audit trail validation.
-- Reflection agent to check and retry
+## Frontend
 
-## Knowledge Retrieval Rules
-Use RAG only for:
-- Problem-specific policy documents
-- Business procedures
-- SOPs
-- Knowledge articles
-- Regulatory documents
-- Compliance documentation
-- FAQs
-- Static reference documents
-Do not use RAG for transactional or frequently changing business data.
+* Angular 17 Standalone Components
+* TypeScript
+* RxJS
+* UI implementation using Stitch MCP (as a dedicated milestone)
 
-## Data Processing
-Before agent execution:
-- Cleanse incoming data.
-- Build context from previous conversations if applicable.
-- Enrich with live systems or application through MCP.
+## Backend
 
-## Authentication & Administration
-- Login/Logout
-- JWT Authentication
-- RBAC
-- User Management
-- Admin Console
-- Master Data Management
-- Knowledge Document Management
-- Configuration Management
-- Audit Logs
-- Analytics Dashboard
+* Python 3.12.8
+* Flask
+* SQLite Database
+* REST APIs
+* JWT Authentication
+* Environment-based configuration
 
-Only administrators may manage business data and knowledge documents.
+---
 
-## Database
-Derive entities from the problem statement.
-Create:
-- Normalized schema
-- Relationships
-- Indexes
-- Seed data
-- Sample datasets
+# Authentication & Administration
 
-## Coding Standards
-- SOLID
-- DRY
-- Layered Architecture
-- Repository Pattern
-- Service Layer
-- Dependency Injection
-- Environment-based configuration
-- Type-safe reusable components
-- Comprehensive logging
-- Robust exception handling
+Implement:
 
-## Demo Features
-Provide a collapsible execution log showing:
-- Input processing
-- Guardrails executed
-- Agents selected
-- Agent inputs
-- Agent outputs
-- MCP tool calls
-- Knowledge retrieval
-- Final orchestration flow
+* Login/Logout
+* JWT Authentication
+* Role-Based Access Control (RBAC)
+* Separate Admin and User login
+* User Management
+* Admin Console
+* Master Data Management
+* Knowledge Document Management
+* Configuration Management
+* Audit Logs
+* Analytics Dashboard
 
-## Definition of Done
-- No TODOs
-- No hardcoded secrets
-- Builds successfully
-- Documentation matches implementation
-- Secure by default
-- Easily extensible for future business domains
+Only administrators should be allowed to manage business data and knowledge documents.
+
+---
+
+# AI Architecture
+
+Implement a LangGraph-based multi-agent architecture.
+
+Requirements:
+
+* Supervisor Agent for orchestration
+* Node-based workflow
+* Separate `agents` folder
+* Identify and implement all the agents required for the business use case
+* Each agent implemented in a separate file
+* MCP tools attached to the respective agents wherever applicable
+* Dynamic agent selection
+* Parallel execution wherever possible
+* Perform RAG retrieval through agent when required.
+* Add a planner agent at start
+* Before returning the final response add Hallucination Detection, Final response validation, Audit trail validation, Reflection Agent and memory agent.
+
+Support:
+* Summary dashboard
+* Analysis pages
+* Implementation pages
+* Text Chat
+* Voice Chat (STT/TTS)
+* Vision
+* OCR
+* Vector Embeddings
+
+---
+
+# MCP Integration
+
+* Implement MCP Server as an independent background service.
+* Use MCP as tools attached to agents wherever applicable.
+* Use MCP for accessing live systems, applications, and external services.
+
+---
+
+# Knowledge Retrieval (RAG)
+
+Use RAG **only** for static knowledge sources such as:
+
+* Policy documents
+* Statements of Work (SOW)
+* Business procedures
+* SOPs
+* Knowledge articles
+* FAQs
+* Regulatory documents
+* Compliance documentation
+* Static reference documents
+
+Seed sample rag documents
+
+Do **not** use RAG for transactional or frequently changing business data.
+
+---
+
+# Guardrails
+
+Execute before LLM calls:
+
+* Prompt Injection Detection
+* Jailbreak Prevention
+* Toxicity Detection
+* Sensitive Information Detection
+* PII Masking
+* SQL Injection Protection
+* Content Moderation
+* Question Relevance Verification
+* Rate Limiting
+* RBAC Validation
+* Audit Logging
+
+---
+
+# Database
+
+Derive entities from the problem statement and create:
+
+* Normalized schema
+* Relationships
+* Indexes
+* Seed data
+* Sample datasets
+* Separate database for backend application logic and mcp server logic
+
+---
+
+# Demo & Observability
+
+Provide a collapsible execution log in a graphical node manner in all pages that runs agents showing:
+
+* Input processing
+* Guardrails executed
+* Text masked
+* Selected agents
+* Agent inputs
+* Agent outputs
+* MCP tool called in agent
+* RAG Knowledge retrieval
+* Final orchestration flow
+* confidence score, token used, cost of token etc.
+
+---
+
+# Definition of Done
+
+The solution should:
+
+* Build successfully
+* Contain no TODOs
+* Contain no hardcoded secrets
+* Be secure by default
+* Include complete implementation documentation
+* Match documentation with implementation
+* Be production-ready
+* Be easily extensible for future business domains
+* Innovative ideas
 
 
-
+git config --global user.email "linusimon@gmail.com"
+git config --global user.name "linu"

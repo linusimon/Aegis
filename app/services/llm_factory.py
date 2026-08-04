@@ -2,7 +2,17 @@ import os
 import json
 from typing import Optional
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_community.chat_models import ChatOpenAI
+try:
+    from langchain_openai import ChatOpenAI
+except ImportError:
+    try:
+        from langchain_community.chat_models import ChatOpenAI
+    except ImportError:
+        try:
+            from langchain.chat_models import ChatOpenAI
+        except ImportError:
+            ChatOpenAI = None
+
 
 def get_llm(temperature: float = 0.2, max_tokens: Optional[int] = None, streaming: bool = False):
     """Factory function to retrieve LLM instance based on configuration.

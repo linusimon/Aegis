@@ -11,7 +11,14 @@ import sqlite3
 import asyncio
 from datetime import datetime, timezone, timedelta
 from typing import Optional, List, Dict, Any
-from mcp.server.fastmcp import FastMCP
+try:
+    from mcp.server.fastmcp import FastMCP
+except ImportError:
+    try:
+        from mcp.server.mcpserver import MCPServer as FastMCP
+    except ImportError:
+        from mcp.server import Server as FastMCP
+
 
 # Initialize FastMCP
 mcp = FastMCP("CapacityPlannerDB")
@@ -684,4 +691,17 @@ async def finops_rightsizing_prompt() -> str:
 
 
 if __name__ == "__main__":
-    asyncio.run(mcp.run_stdio_async())
+    import argparse
+    parser = argparse.ArgumentParser(description="MCP Database Server")
+    parser.add_argument("--transport", choices=["stdio", "sse"], default="sse", help="Transport protocol")
+    parser.add_argument("--port", type=int, default=8001, help="Port for SSE transport")
+    parser.add_argument("--host", default="127.0.0.1", help="Host for SSE transport")
+    args = parser.parse_args()
+
+    if args.transport == "sse":
+        print(f"[MCP SERVER] Starting MCP Database Server over SSE on http://{args.host}:{args.port}/sse ...")
+        asyncio.run(mcp.run_sse_async(host=args.host, port=args.port))
+    else:
+        asyncio.run(mcp.run_stdio_async())
+
+

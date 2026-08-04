@@ -18,6 +18,7 @@ class ForecastRequest(BaseModel):
 
 
 @router.post("/forecast")
+@router.post("/v1/forecast")
 async def trigger_forecast(
     req: Optional[ForecastRequest] = None,
     node_id: Optional[str] = Query(None, description="Optional specific node ID to forecast"),
@@ -51,6 +52,7 @@ async def trigger_forecast(
 
 
 @router.get("/forecast/{node_id}")
+@router.get("/v1/forecast/{node_id}")
 async def get_latest_node_forecast(
     node_id: str,
     horizon_days: int = Query(30, ge=1, le=365)
@@ -61,3 +63,4 @@ async def get_latest_node_forecast(
         return {"status": "success", "forecast": forecast_res.model_dump(mode="json")}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch forecast: {str(e)}")
+

@@ -7,10 +7,8 @@ import os
 from typing import Any, List, Dict, Optional
 from langchain_core.tools import tool
 from app.services.llm_factory import get_llm
-try:
-    from langchain.agents import create_agent as create_react_agent
-except ImportError:
-    from langgraph.prebuilt import create_react_agent
+from langgraph.prebuilt import create_react_agent
+
 from app.mcp_client import MCPDatabaseClient
 from app.rag_engine import rag_engine
 
